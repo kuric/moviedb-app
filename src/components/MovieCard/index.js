@@ -7,7 +7,7 @@ export default class MovieCard extends React.Component {
             <div>
                 <p>{movie.title}</p>
                 <p>{movie.overview}</p>
-                 <img src={`${movie.poster_path}`} alt={movie.title}/>
+                 {/*<img src={`${movie.poster_path}`} alt={movie.title}/>*/}
             </div>
         )
     }

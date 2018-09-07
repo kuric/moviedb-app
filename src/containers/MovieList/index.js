@@ -1,8 +1,9 @@
 import React from 'react';
 import {Row, Col} from 'react-bootstrap';
+import { RingLoader} from 'react-spinners';
+import ReactPaginate from 'react-paginate';
 import MovieCard from "../../components/MovieCard";
 
-import { RingLoader} from 'react-spinners';
 import * as helpers from '../../helpers';
 
 export default class MovieList extends React.Component {
@@ -10,7 +11,8 @@ export default class MovieList extends React.Component {
         movies: [],
         currentPage: 1,
         status: 'initial',
-        loading: false
+        loading: false,
+        pageCount: 0
     };
    async componentDidMount() {
         this.setState({
@@ -20,7 +22,8 @@ export default class MovieList extends React.Component {
         await this.setState({
             movies,
             status: 'done',
-            loading: false
+            loading: false,
+            pageCount: movies.total_pages
         });
 
     }
@@ -35,9 +38,28 @@ export default class MovieList extends React.Component {
                 </Col>
             )) : null;
             return (
-                <Row>
-                    {moviesColumns}
-                </Row>
+                <div>
+                    <Row>
+                        <ReactPaginate
+                            previousLabel={"previous"}
+                            nextLabel={"next"}
+                            breakLabel={<a href="">...</a>}
+                            breakClassName={"break-me"}
+                            pageCount={this.state.pageCount}
+                            initialPage={0}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={this.handlePageClick}
+                            containerClassName={"pagination"}
+                            subContainerClassName={"pages pagination"}
+                            activeClassName={"active"}
+                        />
+                    </Row>
+                    <Row>
+                        {moviesColumns}
+                    </Row>
+
+                </div>
             )
         } else {
             return (
@@ -50,6 +72,20 @@ export default class MovieList extends React.Component {
                 />
             )
         }
+    }
+    handlePageClick = async (data) => {
 
+        let selected = data.selected + 1;
+        this.setState({
+            loading: true
+        });
+        const movies = await helpers.getTopMovies(selected);
+        await this.setState({
+            movies,
+            status: 'done',
+            loading: false,
+            pageCount: movies.total_pages,
+            currentPage: selected
+        });
     }
 }

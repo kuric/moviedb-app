@@ -3,7 +3,7 @@ import {Row, Col} from 'react-bootstrap';
 import { RingLoader} from 'react-spinners';
 import ReactPaginate from 'react-paginate';
 import MovieCard from "../../components/MovieCard";
-
+import './styles.css';
 import * as helpers from '../../helpers';
 
 export default class MovieList extends React.Component {
@@ -41,8 +41,8 @@ export default class MovieList extends React.Component {
                 <div>
                     <Row>
                         <ReactPaginate
-                            previousLabel={"previous"}
-                            nextLabel={"next"}
+                            previousLabel={"<"}
+                            nextLabel={">"}
                             breakLabel={<a href="">...</a>}
                             breakClassName={"break-me"}
                             pageCount={this.state.pageCount}
@@ -50,11 +50,11 @@ export default class MovieList extends React.Component {
                             marginPagesDisplayed={2}
                             pageRangeDisplayed={5}
                             onPageChange={this.handlePageClick}
-                            containerClassName={"pagination"}
-                            subContainerClassName={"pages pagination"}
+                            containerClassName={"pagination pagination-lg"}
+                            pageClassName={"page-item"}
                             activeClassName={"active"}
                         />
-                    </Row>
+                     </Row>
                     <Row>
                         {moviesColumns}
                     </Row>

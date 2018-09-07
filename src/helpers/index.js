@@ -39,6 +39,12 @@ export const getMovieRecomendations = async (movieId) => {
     return response.data;
 };
 
+export const getGenres = async () => {
+    const fullUrl = createMovieDbUrl('/genre/movie/list');
+    const response = await axios.get(fullUrl);
+    return response.data;
+};
+
 export const updateMoviesList = (moviesResponse) => {
     return !!moviesResponse ? ([
         ...moviesResponse.map(movieResult => updateMoviePictureUrls(movieResult))
@@ -51,4 +57,24 @@ const updateMoviePictureUrls = (movieResult, width = 300) => ({
     poster_path: `${TMDB_IMAGE_BASE_URL(width)}${movieResult.poster_path}`,
 });
 
-
+export const mapMoviesList = (moviesResponse, genresResponse) => {
+    // console.log('map', genresResponse)
+    return !!moviesResponse ? ([
+        ...moviesResponse.map(movieResult => updateMovieGenres(movieResult, genresResponse))
+    ]) : null;
+};
+const updateMovieGenres = (movieResult, genres) => {
+    // console.log('updateMovieGenres',genres)
+    let tmpArr = movieResult;
+    let newArr =[];
+    tmpArr.genre_ids.forEach( id => {
+        genres.forEach(genre => {
+            if(genre.id === id) newArr.push(genre.name)
+        });
+        return newArr;
+    });
+    return {
+        ...movieResult,
+        genreNames: newArr
+    }
+};

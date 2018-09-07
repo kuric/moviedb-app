@@ -9,16 +9,28 @@ export default class MovieDetail extends React.Component {
     state = {
         loading: true,
         movies: [],
-        recomendations: []
+        recomendations: [],
+        id: null
     };
     async componentDidMount() {
         const id = this.props.match.params.id;
+        await this.getMovie(id);
+    }
+    async componentWillReceiveProps(nextProps) {
+        const id = this.state.id;
+        const nextId = nextProps.match.params.id;
+        if(id !== nextId) {
+            await this.getMovie(nextId);
+        }
+    }
+    async getMovie(id) {
         const movie = await helpers.getMovieDetails(id);
         const recomendations = await helpers.getMovieRecomendations(id);
         await this.setState({
             loading: false,
             movie,
-            recomendations
+            recomendations,
+            id
         })
     }
     render() {

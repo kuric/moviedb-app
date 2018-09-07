@@ -1,6 +1,7 @@
 import React from 'react';
 import {Row, Col} from 'react-bootstrap';
 import { RingLoader} from 'react-spinners';
+import {css} from 'react-emotion';
 import ReactPaginate from 'react-paginate';
 import MovieCard from "../../components/MovieCard";
 
@@ -70,7 +71,7 @@ export default class MovieList extends React.Component {
         } else {
             return (
                 <RingLoader
-                    className={''}
+                    className={override}
                     sizeUnit={"px"}
                     size={60}
                     color={'#123abc'}
@@ -130,3 +131,8 @@ export default class MovieList extends React.Component {
         });
     }
 }
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+`;

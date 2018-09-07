@@ -28,6 +28,17 @@ export const searchMovies = async (page, query) => {
     return response.data;
 };
 
+export const getMovieDetails = async (movieId) => {
+    const fullUrl = createMovieDbUrl(`/movie/${movieId}`);
+    const response = await axios.get(fullUrl);
+    return response.data;
+};
+export const getMovieRecomendations = async (movieId) => {
+    const fullUrl = createMovieDbUrl(`/movie/${movieId}/recommendations`);
+    const response = await axios.get(fullUrl);
+    return response.data;
+};
+
 export const updateMoviesList = (moviesResponse) => {
     return !!moviesResponse ? ([
         ...moviesResponse.map(movieResult => updateMoviePictureUrls(movieResult))

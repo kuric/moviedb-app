@@ -3,8 +3,9 @@ import {Row, Col} from 'react-bootstrap';
 import { RingLoader} from 'react-spinners';
 import ReactPaginate from 'react-paginate';
 import MovieCard from "../../components/MovieCard";
-import './styles.css';
+
 import * as helpers from '../../helpers';
+import SearchBox from "../../components/SearchForm";
 
 export default class MovieList extends React.Component {
     state = {
@@ -12,7 +13,8 @@ export default class MovieList extends React.Component {
         currentPage: 1,
         status: 'initial',
         loading: false,
-        pageCount: 0
+        pageCount: 0,
+        query: null
     };
    async componentDidMount() {
         this.setState({
@@ -40,6 +42,9 @@ export default class MovieList extends React.Component {
             return (
                 <div>
                     <Row>
+                        <SearchBox action={this.handleChange}/>
+                    </Row>
+                    <Row>
                         <ReactPaginate
                             previousLabel={"<"}
                             nextLabel={">"}
@@ -47,14 +52,15 @@ export default class MovieList extends React.Component {
                             breakClassName={"break-me"}
                             pageCount={this.state.pageCount}
                             initialPage={0}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
+                            marginPagesDisplayed={1}
+                            pageRangeDisplayed={3}
                             onPageChange={this.handlePageClick}
-                            containerClassName={"pagination pagination-lg"}
+                            containerClassName={"pagination"}
                             pageClassName={"page-item"}
-                            activeClassName={"active"}
+                            // activeClassName={"active"}
                         />
                      </Row>
+
                     <Row>
                         {moviesColumns}
                     </Row>
@@ -73,19 +79,54 @@ export default class MovieList extends React.Component {
             )
         }
     }
-    handlePageClick = async (data) => {
+    handleChange = async (e) => {
+       const query = e.target.value.replace(' ', '%2B');
 
-        let selected = data.selected + 1;
+       let movies;
+       // console.log('query',query);
         this.setState({
-            loading: true
+            currentPage: 1
         });
-        const movies = await helpers.getTopMovies(selected);
+       if(query) {
+           movies = await helpers.searchMovies(this.state.currentPage, query);
+       } else {
+           movies = await helpers.getTopMovies(this.state.currentPage);
+       }
         await this.setState({
             movies,
             status: 'done',
             loading: false,
             pageCount: movies.total_pages,
-            currentPage: selected
+            query: query
+        });
+       // await console.log('search movies', movies);
+       // await console.log('search movies query', query);
+    };
+    handlePageClick = async (data) => {
+        // console.log('current page', selectedPage);
+        let {movies, query} = this.state;
+
+        let selectedPage = data.selected + 1;
+
+        if(this.state.query) {
+            this.setState({
+                loading: true
+            });
+           movies = await helpers.searchMovies(selectedPage, query);
+        } else {
+            this.setState({
+                query: '',
+                loading: true
+            });
+             movies = await helpers.getTopMovies(selectedPage);
+        }
+        await this.setState({
+            movies,
+            status: 'done',
+            loading: false,
+            pageCount: movies.total_pages,
+            currentPage: selectedPage,
+            query : query
         });
     }
 }

@@ -17,7 +17,7 @@ export default class SearchBox extends React.Component {
                         type="text"
                         value={this.state.value}
                         placeholder="Enter text"
-                        onChange={this.handleChange}
+                        onChange={this.handleChangeSelect}
                     />
                     <FormControl.Feedback />
                     <HelpBlock>Validation is based on string length.</HelpBlock>
@@ -32,8 +32,11 @@ export default class SearchBox extends React.Component {
         else if (length > 0) return 'error';
         return null;
     };
+    handleChangeSelect = (e) => {
+        this.setState({
+            value: e.target.value
+        });
+        this.props.action(e)
+    }
 
-    handleChange = (e) => {
-        this.setState({ value: e.target.value });
-    };
 }

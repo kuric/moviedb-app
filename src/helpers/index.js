@@ -19,6 +19,14 @@ export const getTopMovies = async (page) => {
     const response = await axios.get(fullUrl);
     return response.data;
 };
+export const searchMovies = async (page, query) => {
+    const fullUrl = createMovieDbUrl('/search/movie', {
+        page,
+        query
+    });
+    const response = await axios.get(fullUrl);
+    return response.data;
+};
 
 export const updateMoviesList = (moviesResponse) => {
     return !!moviesResponse ? ([

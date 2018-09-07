@@ -28,7 +28,7 @@ export default class MovieList extends React.Component {
         console.log('render',this.state.movies);
         const {movies: topMovies, status} = this.state;
         if(status === 'done') {
-            const movies = topMovies.results;
+            const movies = helpers.updateMoviesList(topMovies.results);
             const moviesColumns = movies ? movies.map(movie => (
                 <Col key={movie.id} xs={12} sm={4} md={3} lg={3}>
                     <MovieCard movie={movie} />

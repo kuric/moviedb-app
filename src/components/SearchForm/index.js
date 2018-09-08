@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
+import {FormGroup,FormControl} from 'react-bootstrap';
 
 export default class SearchBox extends React.Component {
     state = {
@@ -12,15 +12,13 @@ export default class SearchBox extends React.Component {
                     controlId="formBasicText"
                     validationState={this.getValidationState()}
                 >
-                    <ControlLabel>Working example with validation</ControlLabel>
                     <FormControl
                         type="text"
                         value={this.state.value}
-                        placeholder="Enter text"
+                        placeholder="Select movie..."
                         onChange={this.handleChangeSelect}
                     />
                     <FormControl.Feedback />
-                    <HelpBlock>Validation is based on string length.</HelpBlock>
                 </FormGroup>
             </form>
         )

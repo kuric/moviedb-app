@@ -1,18 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
-
+import { Link } from 'react-router-dom';
+import './style.css';
 export default class MovieCard extends React.Component {
     render() {
         const {movie} = this.props;
+        // console.log('movieCard',movie);
+        let movieOverview = movie.overview.length > 200 ? movie.overview.slice(0,200)+'...' : movie.overview;
         return (
-            <Link  to={`/${movie.id}`}>
-            <div>
-                <p>{movie.title}</p>
-                <p>{movie.overview}</p>
-                <p>{movie.genreNames}</p>
-                 {/*<img src={`${movie.poster_path}`} alt={movie.title}/>*/}
+            <div className="movie-card">
+                <div className="movie-card card">
+                    <div className="card">
+                         <img className="img-responsive" src={movie.poster_path} alt="" />
+                        <div className="card-text">
+                            <h4 className="card-title">{movie.title}</h4>
+                            <h6 className="subtitle">{movie.original_title}</h6>
+                            <p className="overview" >{movieOverview}</p>
+                        </div>
+
+                    </div>
+                        <Link  to={`/${movie.id}`}>
+                             <h4 className="text-center">{movie.title}</h4>
+                        </Link>
+                </div>
             </div>
-            </Link>
         )
     }
 }

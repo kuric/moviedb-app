@@ -1,0 +1,44 @@
+.movie-card {
+    margin-bottom: 10px;
+}
+
+.card:hover:after {
+    content:"";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 10000px rgba(0,0,0,0.4);
+}
+.card:hover .overview {
+    display: block;
+}
+.card {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+.card-text {
+    padding: 16px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.card-title {
+    color:#ffffff;
+    font-weight: bold;
+}
+.subtitle {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.87);
+    display: block;
+    line-height: 36px;
+}
+.overview {
+    font-size: 14px;
+    color: #ffffff;
+    display: none;
+}
+.movie-card.card {
+    height: 450px;
+}

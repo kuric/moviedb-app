@@ -4,11 +4,12 @@ import { RingLoader} from 'react-spinners';
 import {css} from 'react-emotion';
 import ReactPaginate from 'react-paginate';
 import MovieCard from "../../components/MovieCard";
-
+import {connect} from 'react-redux';
+import * as movieActions from '../../actions';
 import * as helpers from '../../helpers';
 import SearchBox from "../../components/SearchForm";
 
-export default class MovieList extends React.Component {
+class MovieList extends React.Component {
     state = {
         movies: [],
         currentPage: 1,
@@ -22,14 +23,14 @@ export default class MovieList extends React.Component {
         this.setState({
             loading: true
         });
-        const movies = await helpers.getTopMovies(this.state.currentPage);
-        const genres = await helpers.getGenres();
+        const movies = await this.props.getTopMovies(this.state.currentPage);
+        const genres = await this.props.getGenres();
         await this.setState({
-            movies,
+            movies: movies.response,
             status: 'done',
             loading: false,
-            pageCount: movies.total_pages,
-            genres:genres.genres
+            pageCount: movies.response.total_pages,
+            genres: genres.response
         });
 
     }
@@ -38,7 +39,8 @@ export default class MovieList extends React.Component {
         const {movies: topMovies, genres, status} = this.state;
         if(status === 'done') {
             // console.log('render genres', genres)
-            let movies = helpers.updateMoviesList(topMovies.results);
+            // console.log('render',this.state.movies);
+            let movies = helpers.updateMoviesList(this.state.movies.results);
             movies = helpers.mapMoviesList(movies, genres);
              const moviesColumns = movies ? movies.map(movie => (
                 <Col key={movie.id} xs={12} sm={4} md={3} lg={3}>
@@ -89,27 +91,27 @@ export default class MovieList extends React.Component {
        const query = e.target.value.replace(' ', '%2B');
 
        let movies;
-       // console.log('query',query);
+
         this.setState({
             currentPage: 1
         });
+        // console.log('MovieList change query',query);
+        // console.log('MovieList change page', this.state.currentPage);
        if(query) {
-           movies = await helpers.searchMovies(this.state.currentPage, query);
+           movies = await this.props.searchMovies(this.state.currentPage, query);
        } else {
-           movies = await helpers.getTopMovies(this.state.currentPage);
+           movies = await this.props.getTopMovies(this.state.currentPage);
        }
         await this.setState({
-            movies,
+            movies: movies.response,
             status: 'done',
             loading: false,
-            pageCount: movies.total_pages,
+            pageCount: movies.response.total_pages,
             query: query
         });
-       // await console.log('search movies', movies);
-       // await console.log('search movies query', query);
     };
     handlePageClick = async (data) => {
-        // console.log('current page', selectedPage);
+
         let {movies, query} = this.state;
 
         let selectedPage = data.selected + 1;
@@ -118,19 +120,24 @@ export default class MovieList extends React.Component {
             this.setState({
                 loading: true
             });
-           movies = await helpers.searchMovies(selectedPage, query);
+            // console.log('MovieList click query',query);
+           movies = await this.props.searchMovies(selectedPage, query);
+
         } else {
             this.setState({
                 query: '',
                 loading: true
             });
-             movies = await helpers.getTopMovies(selectedPage);
+            // console.log('MovieList click page', this.state.currentPage);
+            // console.log('pageclick page', selectedPage );
+             movies = await this.props.getTopMovies(selectedPage);
         }
+        await console.log('pageclick', movies.response);
         await this.setState({
-            movies,
+            movies: movies.response,
             status: 'done',
             loading: false,
-            pageCount: movies.total_pages,
+            pageCount: movies.response.total_pages,
             currentPage: selectedPage,
             query : query
         });
@@ -141,3 +148,14 @@ const override = css`
     margin: 0 auto;
     border-color: red;
 `;
+
+export default connect(
+    // Map nodes in our state to a properties of our component
+    (state) => ({
+        topMovies: state.movieBrowser.topMovies,
+        genres: state.movieBrowser.genres,
+        searchedMovies: state.movieBrowser.searchMovies
+    }),
+    // Map action creators to properties of our component
+    { ...movieActions }
+)(MovieList);

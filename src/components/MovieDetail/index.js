@@ -39,7 +39,7 @@ export default class MovieDetail extends React.Component {
         const {loading, movie, recomendations} = this.state;
 
         if(!loading) {
-            console.log('movieDetail',movie);
+            // console.log('movieDetail',movie);
             const imgSrc = `${TMDB_IMAGE_BASE_URL(300)}${movie.backdrop_path}`;
             const movies = helpers.updateMoviesList(recomendations.results);
             const moviesColumns =  movies ? movies.map(movie => (

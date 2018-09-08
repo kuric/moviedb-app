@@ -12,14 +12,14 @@ const createMovieDbUrl = (relativeUrl, queryParams) => {
     return baseUrl;
 };
 
-export const getTopMovies = async (page) => {
+export const getTopMovies = async ({page}) => {
     const fullUrl = createMovieDbUrl('/movie/top_rated', {
         page
     });
     const response = await axios.get(fullUrl);
     return response.data;
 };
-export const searchMovies = async (page, query) => {
+export const searchMovies = async ({page, query}) => {
     const fullUrl = createMovieDbUrl('/search/movie', {
         page,
         query
@@ -64,11 +64,11 @@ export const mapMoviesList = (moviesResponse, genresResponse) => {
     ]) : null;
 };
 const updateMovieGenres = (movieResult, genres) => {
-    // console.log('updateMovieGenres',genres)
+    // console.log('updateMovieGenres',movieResult, genres)
     let tmpArr = movieResult;
     let newArr =[];
     tmpArr.genre_ids.forEach( id => {
-        genres.forEach(genre => {
+        genres.genres.forEach(genre => {
             if(genre.id === id) newArr.push(genre.name)
         });
         return newArr;

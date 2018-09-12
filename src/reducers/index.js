@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import { createAsyncReducer } from '../helpers/reducers.helpers';
+import { createAsyncReducer } from '../api/reducers.helpers';
 import { keys as movieActionKeys } from '../actions';
 
 const moviesSuccessReducer = (state, action) => {

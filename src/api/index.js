@@ -2,7 +2,16 @@ import axios from "axios";
 import {MOVIE_DB_API_KEY} from "../constants";
 const TMDB_IMAGE_BASE_URL = (width = 300) => `https://image.tmdb.org/t/p/w${width}`;
 const MOVIE_DB_BASE_URL = 'https://api.themoviedb.org/3';
-
+/**
+ * Returns URL to connect with TMDB.com
+ * @example
+ * // returns 2
+ * globalNS.method1(5, 10);
+ * @example
+ * // returns 3
+ * globalNS.method(5, 15);
+ * @returns {String} Returns the value of x for the equation.
+ */
 const createMovieDbUrl = (relativeUrl, queryParams) => {
     let baseUrl = `${MOVIE_DB_BASE_URL}${relativeUrl}?api_key=${MOVIE_DB_API_KEY}&language=en-US`;
     if (queryParams) {

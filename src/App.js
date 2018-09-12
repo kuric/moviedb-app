@@ -6,7 +6,6 @@ import  {Navbar} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import './App.css';
 import MovieDetail from "./components/MovieDetail";
-
 class App extends Component {
   render() {
     return (
@@ -17,7 +16,7 @@ class App extends Component {
                     <Navbar.Brand>
                         <Link to='/'>
                             Home
-                        </Link>
+                         </Link>
                     </Navbar.Brand>
                 </Navbar.Header>
 

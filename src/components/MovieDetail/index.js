@@ -1,6 +1,6 @@
 import React from 'react';
 import {Row, Col, Grid, Well} from 'react-bootstrap';
-import * as helpers from '../../helpers';
+import * as helpers from '../../api';
 import {RingLoader} from "react-spinners";
 import {css} from 'react-emotion';
 import MovieCard from "../MovieCard";

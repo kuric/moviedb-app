@@ -6,7 +6,7 @@ import ReactPaginate from 'react-paginate';
 import MovieCard from "../../components/MovieCard";
 import {connect} from 'react-redux';
 import * as movieActions from '../../actions';
-import * as helpers from '../../helpers';
+import * as helpers from '../../api';
 import SearchBox from "../../components/SearchForm";
 
 class MovieList extends React.Component {

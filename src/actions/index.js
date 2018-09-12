@@ -1,5 +1,5 @@
-import {createAsyncActionCreator} from '../helpers/reducers.helpers';
-import * as movieService from '../helpers';
+import {createAsyncActionCreator} from '../api/reducers.helpers';
+import * as movieService from '../api';
 
 export const keys = {
     'GET_TOP_MOVIES': 'GET_TOP_MOVIES',

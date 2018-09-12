@@ -9,6 +9,7 @@ The MovieList container uses a api to retrieve a list of movies (with async redu
 
 For styling, I have adopted bootstrap-react. I use CSS for all custom written styles.
 
+Live demo you can here there: [demo](https://kuric.github.io/react-movie-search/)
 ### The application is composed of the following components:
 
 MovieBrowser - A root component that displays application title, search and list of movies.

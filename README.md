@@ -26,7 +26,7 @@ MovieDetail - Rerpresents a single Movie from [TMDB](https://www.themoviedb.org)
  ![moviedb-main](src/assets/screenshots/main.png)
  ***Search***
  
- ![search](src/assets/screenshots/main.png)
+ ![search](src/assets/screenshots/search.png)
  ***Detail***
  
  ![detail](src/assets/screenshots/recommendations.png)

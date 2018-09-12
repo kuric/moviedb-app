@@ -1,4 +1,4 @@
-#MovieDB-React-App
+# MovieDB-React-App
 A basic application that displays a list of movies as a list of cards from [TMDB](https://www.themoviedb.org). 
 Each card provides movie detail such as title, subtitle, description, image.
 
@@ -9,7 +9,7 @@ The MovieList container uses a api to retrieve a list of movies (with async redu
 
 For styling, I have adopted bootstrap-react. I use CSS for all custom written styles.
 
-###The application is composed of the following components:
+### The application is composed of the following components:
 
 MovieBrowser - A root component that displays application title, search and list of movies.
 
@@ -23,17 +23,17 @@ MovieDetail - Rerpresents a single Movie from [TMDB](https://www.themoviedb.org)
 
 **Screenshots:**
 
- ![moviedb-main](./assets/screenshots/main.png)
+ ![moviedb-main](src/assets/screenshots/main.png)
  ***Search***
  
- ![search](./assets/screenshots/main.png)
+ ![search](src/assets/screenshots/main.png)
  ***Detail***
  
- ![detail](./assets/screenshots/recommendations.png)
+ ![detail](src/assets/screenshots/recommendations.png)
  ***On Hover***
  
- ![hover](./assets/screenshots/hover.png)
-###API:
+ ![hover](src/assets/screenshots/hover.png)
+### API:
 - createMovieDbUrl - Returns URL to connect to [TMDB](https://www.themoviedb.org)
 
   example: ```createMovieDbUrl('/movie/top_rated', {1});``` return https://api.themoviedb.org/3/movie/top_rated?api_key=YOUR_MOVIEDB_KEY&language=en-US&page=1

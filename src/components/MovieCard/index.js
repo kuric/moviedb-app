@@ -10,11 +10,13 @@ export default class MovieCard extends React.Component {
             <div className="movie-card">
                 <div className="movie-card card">
                     <div className="card">
-                         <img className="img-responsive" src={movie.poster_path} alt="" />
+                         <img className="img-responsive image" src={movie.poster_path} alt="" />
                         <div className="card-text">
+                            <div className="text">
                             <h4 className="card-title">{movie.title}</h4>
                             <h6 className="subtitle">{movie.original_title}</h6>
                             <p className="overview" >{movieOverview}</p>
+                            </div>
                         </div>
 
                     </div>
